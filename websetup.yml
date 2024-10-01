@@ -1,0 +1,20 @@
+---
+- hosts: webservers
+  become: true
+  vars_files:
+    - web_vars.yml
+  tasks:
+    - name: install web pkg
+      ansible.builtin.dnf:
+        name: "{{ web_pkg }}"
+        state: present
+    - name: push web content
+      ansible.builtin.copy:
+        src: index.html
+        dest: "{{ web_root }}/index.html"
+        mode: 0644
+    - name: start and enable the web service
+      ansible.builtin.service:
+        name: "{{ web_svc }}"
+        state: started
+        enabled: true

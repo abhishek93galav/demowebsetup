@@ -1,0 +1,3 @@
+web_pkg: apache
+web_root: /var/www/html/
+web_svc: httpd
